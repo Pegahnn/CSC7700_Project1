@@ -12,22 +12,19 @@ from sklearn.metrics import r2_score
 # 1. Prepare the Vehicle MPG Dataset
 
 
-# Fetch the dataset from UCI Machine Learning Repository
-auto_mpg = fetch_ucirepo(id=9)
 
-# Extract features and target
+auto_mpg = fetch_ucirepo(id=9)
 X = auto_mpg.data.features
 y = auto_mpg.data.targets
 
 # Combine features and target for easy handling
 data = pd.concat([X, y], axis=1)
 
-# Remove rows with missing target values
 cleaned_data = data.dropna()
 X = cleaned_data.iloc[:, :-1]
 y = cleaned_data.iloc[:, -1]
 
-# Split the data: 70% training, 15% validation, 15% testing
+# Split the data
 X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=42)
 X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
 
@@ -36,7 +33,6 @@ X_mean, X_std = X_train.mean(axis=0), X_train.std(axis=0)
 X_train = (X_train - X_mean) / X_std
 X_val = (X_val - X_mean) / X_std
 X_test = (X_test - X_mean) / X_std
-
 y_mean, y_std = y_train.mean(), y_train.std()
 y_train = (y_train - y_mean) / y_std
 y_val = (y_val - y_mean) / y_std

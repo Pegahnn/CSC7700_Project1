@@ -174,18 +174,18 @@ class Layer:
         #RMSPROP
 
         if rmsprop:
-            # RMSProp weight update
+           
             self.cache_weights = decay_rate * self.cache_weights + (1 - decay_rate) * grad_weights**2
             self.cache_bias = decay_rate * self.cache_bias + (1 - decay_rate) * grad_bias**2
 
             self.weights -= (learning_rate / (np.sqrt(self.cache_weights) + self.epsilon)) * grad_weights
             self.bias -= (learning_rate / (np.sqrt(self.cache_bias) + self.epsilon)) * grad_bias
         else:
-            # Vanilla SGD
+            
             self.weights -= learning_rate * grad_weights
             self.bias -= learning_rate * grad_bias
 
-        # Propagate delta to previous layer
+        
         return np.dot(delta, self.weights.T)
 
 # 5. Define Multilayer Perceptron Class
