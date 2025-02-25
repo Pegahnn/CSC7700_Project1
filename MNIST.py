@@ -144,6 +144,9 @@ class Layer:
         self.activation = activation_function
         self.dropout_rate = dropout_rate
         self.training = True  # Default: training mode
+        self.cache_weights = np.zeros_like(self.weights)
+        self.cache_bias = np.zeros_like(self.bias)
+        self.epsilon = 1e-8
 
     def forward(self, x, training=True):
         self.input = x
